@@ -1,9 +1,11 @@
+<!-- 开关：允许在script中写组合式api -->
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
 </script>
 
 <template>
+  <!-- 不再要求唯一根元素 -->
   <header>
     <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
 
