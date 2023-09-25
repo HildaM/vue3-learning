@@ -1,25 +1,50 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, watch } from 'vue';
 
-const list = ref(
-  [1, 2, 3, 4, 5, 6 ,7 ,8 ]
-)
-const computedList = computed(() => {
-  // 根据一个数据得到一个新数据，除此之外的功能都是“副作用”
-  return list.value.filter(item => item > 2)
+// 1. 侦听单个数据的变化
+const count = ref(0)
+const setCount = () => {
+  count.value++
+}
+
+// watch 侦听单个数据源
+// 入参ref对象，不需要加value
+watch(count, (newVal, oldVal) => {
+  // 打印新值与旧值
+  console.log('count变化了！', newVal, oldVal)
 })
 
-setTimeout(() => {
-  list.value.push(9, 10)
-}, 3000)
+
+// 2. 同时侦听多个响应式数据的变化
+const count2 = ref(0)
+const changeCount = () => {
+  count2.value++
+}
+
+const name = ref('cp')
+const changeName = () => {
+  name.value = 'pc'
+}
+
+// 同时侦听多个数据源
+watch(
+  [count2, name],
+  ([newCount, newName], [oldCount, oldName]) => {
+    console.log('count或者name变化了', [newCount, newName], [oldCount, oldName])
+  }
+)
+
 
 </script>
 
 <template>
   <div>
-    原始数组：{{ list }}
+    <button @click="setCount">{{ count }}</button>
   </div>
   <div>
-    computed后的数组：{{ computedList }}
+    <button @click="changeCount">修改count2--{{ count2 }}</button>
+  </div>
+  <div>
+    <button @click="changeName">修改name--{{ name }}</button>
   </div>
 </template>
