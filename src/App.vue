@@ -1,30 +1,25 @@
 <script setup>
-// reactive对象
-// 1. 导入函数
-import { reactive } from 'vue';
-// 2. 执行对象
-// reactive只接收‘对象类型’的参数。如果是简单类型，需要用ref
-const state = reactive({
-  count: 0
-})
-const setCount = () => {
-  state.count++
-}
+import { ref, computed } from 'vue';
 
-// ref对象
-import { ref } from 'vue';
-// [简单类型 + 对象类型]
-const count = ref(0)
-const setCount2 = () => {
-  // 脚本区域修改ref的数据，必须通过 .value 属性修改
-  count.value++
-}
+const list = ref(
+  [1, 2, 3, 4, 5, 6 ,7 ,8 ]
+)
+const computedList = computed(() => {
+  // 根据一个数据得到一个新数据，除此之外的功能都是“副作用”
+  return list.value.filter(item => item > 2)
+})
+
+setTimeout(() => {
+  list.value.push(9, 10)
+}, 3000)
 
 </script>
 
 <template>
   <div>
-    <button @click="setCount">{{ state.count }}</button>
-    <button @click="setCount2">{{ count }}</button>
+    原始数组：{{ list }}
+  </div>
+  <div>
+    computed后的数组：{{ computedList }}
   </div>
 </template>
