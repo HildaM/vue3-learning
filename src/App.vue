@@ -34,6 +34,32 @@ watch(
   }
 )
 
+// 3. watch深度侦听
+const state3 = ref({count: 0})
+const changeStateByCount = () => {
+  state3.value.count++
+}
+
+watch(state3, () => {
+  console.log('深层watch：count变化了')
+}, {
+  deep: true
+})
+
+const state4 = ref({
+  count: 0, 
+  age: 22
+})
+const changeStateByCount2 = () => {
+  state4.value.count++
+}
+// 精确侦听某个具体属性
+watch(
+  () => state4.value.age,   // 指明需要侦听的属性
+  () => {
+    console.log('age变化了')
+  }
+)
 
 </script>
 
@@ -46,5 +72,11 @@ watch(
   </div>
   <div>
     <button @click="changeName">修改name--{{ name }}</button>
+  </div>
+  <div>
+    <button @click="changeStateByCount">deep watch: count--{{ state3.count }}</button>
+  </div>
+  <div>
+    <button @click="changeStateByCount2">deep watch2: count--{{ state3.count }}</button>
   </div>
 </template>
