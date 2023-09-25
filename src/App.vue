@@ -1,8 +1,37 @@
 <!-- 开关：允许在script中写组合式api -->
+<!-- Vue3 组合式api代码风格 -->
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+
+const message = 'this is message'
+const logMessage = () => {
+  console.log(message)
+}
+logMessage()
+
 </script>
+
+<!-- Vue2 的代码风格 -->
+<!-- <script>
+export default {
+  setup() {
+    console.log('setup')
+    const message = 'this is message'
+    const logMessage = () => {
+      console.log(message)
+    }
+
+    return {
+      message,
+      logMessage
+    }
+  },
+  beforeCreate() {
+    console.log('beforeCreate')
+  }
+}
+</script> -->
+
+
 
 <template>
   <!-- 不再要求唯一根元素 -->
@@ -10,7 +39,7 @@ import TheWelcome from './components/TheWelcome.vue'
     <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+      <HelloWorld msg="You did it!" /> 
     </div>
   </header>
 
