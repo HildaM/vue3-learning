@@ -1,78 +1,30 @@
-<!-- 开关：允许在script中写组合式api -->
-<!-- Vue3 组合式api代码风格 -->
 <script setup>
-
-const message = 'this is message'
-const logMessage = () => {
-  console.log(message)
+// reactive对象
+// 1. 导入函数
+import { reactive } from 'vue';
+// 2. 执行对象
+// reactive只接收‘对象类型’的参数。如果是简单类型，需要用ref
+const state = reactive({
+  count: 0
+})
+const setCount = () => {
+  state.count++
 }
-logMessage()
+
+// ref对象
+import { ref } from 'vue';
+// [简单类型 + 对象类型]
+const count = ref(0)
+const setCount2 = () => {
+  // 脚本区域修改ref的数据，必须通过 .value 属性修改
+  count.value++
+}
 
 </script>
 
-<!-- Vue2 的代码风格 -->
-<!-- <script>
-export default {
-  setup() {
-    console.log('setup')
-    const message = 'this is message'
-    const logMessage = () => {
-      console.log(message)
-    }
-
-    return {
-      message,
-      logMessage
-    }
-  },
-  beforeCreate() {
-    console.log('beforeCreate')
-  }
-}
-</script> -->
-
-
-
 <template>
-  <!-- 不再要求唯一根元素 -->
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" /> 
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <div>
+    <button @click="setCount">{{ state.count }}</button>
+    <button @click="setCount2">{{ count }}</button>
+  </div>
 </template>
-
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
